@@ -18,10 +18,10 @@ echo COMMUNITY: $COMMUNITY
 echo E-mail: $EMAIL 
 echo Local: $LOCAL && sleep 10
 
-
 if [ -x /usr/bin/apt-get ]; then
   # Instala os pacotes 
   apt-get update && \
+  apt-get purge snmpd -y && \
   apt-get install snmpd -y && \
   # parando SNMP 
   /etc/init.d/snmpd stop \
@@ -35,23 +35,7 @@ if [ -x /usr/bin/apt-get ]; then
   sed -i "s/sysContact     Me <me@example.org>/sysContact     <$EMAIL>/" /etc/snmp/snmpd.conf
   sed -i "s/sysLocation    Sitting on the Dock of the Bay/sysLocation    $LOCAL/" /etc/snmp/snmpd.conf
   #inicia o SNMP
-  /etc/init.d/snmpd start
-
-  option="${1}" 
-  case ${option} in 
-     -h|-H) 
-        # Exibe a versão 
-        echo "José Rodrigues Filho"
-        echo "SNMP | V1.0"
-        ;;
-     *)  
-        echo "`basename ${0}`:Opção inválida, use: [-h Versão]" 
-        exit 1
-        ;; 
-  esac
-EOF
-
-#
+  /etc/init.d/snmpd start && /etc/init.d/snmpd status
 
   exit 0
 fi
