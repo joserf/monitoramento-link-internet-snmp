@@ -6,4 +6,4 @@ Instalação
     # bash <( curl -Ss https://raw.githubusercontent.com/joserf/monitoramento-link-internet-snmp/master/install.sh)
 
 
-<img src=tig_stacking.png/>
+<!--<img src=tig_stacking.png/>
