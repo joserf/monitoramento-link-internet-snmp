@@ -1,0 +1,91 @@
+# Monitoramento com TIG
+# Jose Rodrigues Filho
+# v1.0
+version: '3.5'
+
+services:
+
+#
+# Telegraf
+#
+   telegraf:
+    container_name: Telegraf
+    # Versao (1.13.0)  
+    image: telegraf:alpine
+
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro" 
+    # Arquivo telegraf.conf 
+      - "/home/joserf/docker/containers/telegraf/data/telegraf.conf:/etc/telegraf/telegraf.conf:ro"
+
+    networks:
+      - monitoramentoTIG
+#   "no", always, on-failure, unless-stopped      
+    restart:
+      always
+
+#
+# Influxdb
+#
+   influxdb:
+    container_name: Influxdb
+    # Versao (influxdb:1.2.4-alpine)
+    image: influxdb:1.2.4-alpine
+
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/home/joserf/docker/containers/influxDB/data:/var/lib/influxdb"      
+
+    environment:
+       # hostname
+       HOSTNAME: influxdb
+       INFLUXDB_ADMIN_ENABLED: "true"
+       INFLUXDB_HTTP_AUTH_ENABLED: "false"
+
+    ports:
+      - "8083:8083"
+      - "8086:8086"  
+
+    networks:
+      - monitoramentoTIG
+    # "no", always, on-failure, unless-stopped      
+    restart:
+      always
+
+#
+# Grafana
+#
+   grafana:
+    container_name: Grafana
+    # Versao (6.5.2)
+    image: grafana/grafana
+
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/home/joserf/docker/containers/grafana/data:/var/lib/grafana"      
+
+    environment:
+       GF_SECURITY_ADMIN_PASSWORD: "secret" 
+       GF_INSTALL_PLUGINS: "camptocamp-prometheus-alertmanager-datasource,grafana-clock-panel,briangann-gauge-panel,alexanderzobnin-zabbix-app,farski-blendstat-panel,grafana-polystat-panel,vonage-status-panel,grafana-piechart-panel" 
+    
+    ports:
+      - "3000:3000"
+
+    networks:
+      - monitoramentoTIG
+    # "no", always, on-failure, unless-stopped      
+    restart: 
+      on-failure:3
+
+#
+# NETWORK
+#
+networks:
+  monitoramentoTIG:
+   name: monitoramentoTIG 
+# Para varias redes.
+#  LAN:
+#   name: LAN 
