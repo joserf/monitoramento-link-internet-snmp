@@ -1,7 +1,7 @@
 # monitoramento-link-internet-snmp
 Mede o consumo real do tráfego de internet por SNMP
 
-    <img src="Dashboard.png" alt="" width= height=>
+ <img src="Dashboard.png" alt="" width= height=>
 
 Instalação:
 
@@ -57,7 +57,7 @@ Instalação:
       oid = "IF-MIB::ifName"
       is_tag = true
       
-3- Instalação e criação de containers
+3- Instalação e criação de containers.
 
     # docker-compose up -d
 
@@ -67,12 +67,12 @@ Instalação:
   Senha: secret
   
   Data Source
-  
-    <img src="Datasource.png">
+ 
+ <img src="Datasource.png">
   
   Importe o template (Monitoramento de link - SNMP.json) e edite as variáveis de acordo com sua configuração, em download e upload utilize o site: https://www.gbmb.org/mb-to-bytes
   
-     <img src="Variables.png">
+  <img src="Variables.png">
 
 
       
