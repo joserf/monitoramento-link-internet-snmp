@@ -70,7 +70,7 @@ Instalação:
  
  <img src="Datasource.png">
   
-  Importe o template (Monitoramento de link - SNMP.json) e edite as variáveis de acordo com sua configuração, em download e upload utilize o site: https://www.gbmb.org/mb-to-bytes
+  Importe o template (Monitoramento de link - SNMP.json) e edite as variáveis de acordo com sua configuração, em download e upload utilize o site: https://www.gbmb.org/mb-to-bytes Utilizando os valores reais de download e upload do link de internet.
   
   <img src="Variables.png">
 
